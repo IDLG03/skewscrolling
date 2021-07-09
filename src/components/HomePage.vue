@@ -1,7 +1,7 @@
 <template>
   <div class="content-container"  >
     
-    <div class="homescreen" v-on:wheel.once.self="handleWheel" >
+    <div class="homescreen" v-on:wheel.once.self="handleWheel" v-touch:swipe.top="nextPage" v-touch:swipe.bottom="prevPage" >
       <transition-group                
 				v-on:enter="enter"				
 				v-on:leave="leave"
@@ -151,7 +151,7 @@ export default {
         this.scene4,
         this.scene5]
       
-    },
+    },    
     handleWheel(event) {      
         if (event.deltaY < 0) {
           this.scene = this.scene - 1;
@@ -178,6 +178,14 @@ export default {
       }
       this.currentscene();
       console.log("next page");
+    },
+    prevPage() {
+      this.scene = this.scene - 1;
+      if(this.scene <= 1){
+        this.scene = 1;
+      }
+      this.currentscene();
+      console.log("prev page");
     },
     topPage(){      
       this.scene = 1;
